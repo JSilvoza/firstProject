@@ -3,557 +3,659 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>UI Component Testbed</title>
+  <title>Top 10 Household Cats in the U.S.</title>
   <style>
-    /* ── Reset & base ── */
+    /* ── Reset & Base ── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --cream: #fdf6ec;
+      --brown: #6b3f2a;
+      --orange: #e07b39;
+      --orange-light: #f5a96a;
+      --card-bg: #fff;
+      --text: #2d1b0e;
+      --muted: #8c6a55;
+      --shadow: 0 4px 24px rgba(107,63,42,.12);
+    }
+    html { scroll-behavior: smooth; }
     body {
       font-family: system-ui, -apple-system, sans-serif;
-      background: #f5f7fa;
-      color: #1a1a2e;
+      background: var(--cream);
+      color: var(--text);
       line-height: 1.6;
     }
 
-    /* ── Layout ── */
-    header {
-      background: #1a1a2e;
+    /* ── Hero ── */
+    .hero {
+      background: linear-gradient(135deg, #6b3f2a 0%, #c0622a 60%, #e07b39 100%);
       color: #fff;
-      padding: 1.25rem 2rem;
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-    }
-    header h1 { font-size: 1.4rem; }
-    header span { font-size: 0.8rem; background: #e63946; padding: 2px 8px; border-radius: 99px; }
-
-    main {
-      max-width: 860px;
-      margin: 2rem auto;
-      padding: 0 1.5rem;
-      display: flex;
-      flex-direction: column;
-      gap: 2.5rem;
-    }
-
-    section {
-      background: #fff;
-      border-radius: 12px;
-      padding: 1.75rem;
-      box-shadow: 0 2px 10px rgba(0,0,0,.07);
-    }
-    section h2 {
-      font-size: 1rem;
-      text-transform: uppercase;
-      letter-spacing: .08em;
-      color: #6b7280;
-      margin-bottom: 1.25rem;
-      border-bottom: 1px solid #e5e7eb;
-      padding-bottom: .5rem;
-    }
-
-    /* ── Buttons ── */
-    .btn-row { display: flex; flex-wrap: wrap; gap: .75rem; }
-    .btn {
-      padding: .5rem 1.25rem;
-      border: none;
-      border-radius: 8px;
-      font-size: .95rem;
-      cursor: pointer;
-      font-weight: 600;
-      transition: filter .15s, transform .1s;
-    }
-    .btn:active { transform: scale(.96); }
-    .btn:hover  { filter: brightness(1.1); }
-    .btn-primary   { background: #2563eb; color: #fff; }
-    .btn-success   { background: #16a34a; color: #fff; }
-    .btn-danger    { background: #dc2626; color: #fff; }
-    .btn-warning   { background: #d97706; color: #fff; }
-    .btn-outline   { background: transparent; border: 2px solid #2563eb; color: #2563eb; }
-    .btn-ghost     { background: transparent; color: #6b7280; }
-    .btn:disabled  { opacity: .45; cursor: not-allowed; }
-    #btn-feedback  { margin-top: .75rem; font-size: .9rem; color: #16a34a; min-height: 1.4rem; }
-
-    /* ── Form ── */
-    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-    @media (max-width: 540px) { .form-grid { grid-template-columns: 1fr; } }
-    .form-group { display: flex; flex-direction: column; gap: .3rem; }
-    .form-group.full { grid-column: 1 / -1; }
-    label { font-size: .88rem; font-weight: 600; color: #374151; }
-    input, select, textarea {
-      padding: .55rem .8rem;
-      border: 1.5px solid #d1d5db;
-      border-radius: 8px;
-      font-size: .95rem;
-      transition: border-color .15s, box-shadow .15s;
-      font-family: inherit;
-    }
-    input:focus, select:focus, textarea:focus {
-      outline: none;
-      border-color: #2563eb;
-      box-shadow: 0 0 0 3px rgba(37,99,235,.15);
-    }
-    textarea { resize: vertical; min-height: 80px; }
-    .form-error { font-size: .8rem; color: #dc2626; min-height: 1rem; }
-    #form-result {
-      margin-top: 1rem;
-      padding: .8rem 1rem;
-      border-radius: 8px;
-      display: none;
-    }
-    #form-result.success { background: #d1fae5; color: #065f46; }
-    #form-result.error   { background: #fee2e2; color: #7f1d1d; }
-
-    /* ── Tabs ── */
-    .tabs { display: flex; gap: .25rem; border-bottom: 2px solid #e5e7eb; margin-bottom: 1.25rem; }
-    .tab-btn {
-      padding: .5rem 1rem;
-      background: none;
-      border: none;
-      border-bottom: 3px solid transparent;
-      cursor: pointer;
-      font-weight: 600;
-      color: #6b7280;
-      margin-bottom: -2px;
-      transition: color .15s, border-color .15s;
-    }
-    .tab-btn.active { color: #2563eb; border-bottom-color: #2563eb; }
-    .tab-panel { display: none; }
-    .tab-panel.active { display: block; }
-    .tab-panel p { color: #4b5563; }
-
-    /* ── Dropdown ── */
-    .dropdown { position: relative; display: inline-block; }
-    .dropdown-menu {
-      display: none;
-      position: absolute;
-      top: calc(100% + 6px);
-      left: 0;
-      background: #fff;
-      border: 1.5px solid #e5e7eb;
-      border-radius: 10px;
-      box-shadow: 0 8px 24px rgba(0,0,0,.12);
-      min-width: 180px;
-      z-index: 10;
+      text-align: center;
+      padding: 4rem 1.5rem 5rem;
+      position: relative;
       overflow: hidden;
     }
-    .dropdown-menu.open { display: block; }
-    .dropdown-menu a {
-      display: block;
-      padding: .6rem 1rem;
-      color: #1a1a2e;
-      text-decoration: none;
-      font-size: .92rem;
-      transition: background .12s;
+    .hero::before {
+      content: '🐾';
+      position: absolute;
+      font-size: 18rem;
+      opacity: .06;
+      top: -2rem;
+      right: -2rem;
+      line-height: 1;
     }
-    .dropdown-menu a:hover { background: #f3f4f6; }
-    #dropdown-selected { margin-top: .75rem; font-size: .9rem; color: #374151; }
+    .hero h1 {
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 800;
+      letter-spacing: -.02em;
+      margin-bottom: .5rem;
+    }
+    .hero p {
+      font-size: 1.1rem;
+      opacity: .85;
+      max-width: 520px;
+      margin: 0 auto 1.75rem;
+    }
+    .hero-emoji { font-size: 3rem; display: block; margin-bottom: .75rem; }
+
+    /* ── Search / Filter ── */
+    .controls {
+      max-width: 700px;
+      margin: -1.75rem auto 0;
+      padding: 0 1.5rem;
+      position: relative;
+      z-index: 10;
+    }
+    .search-wrap {
+      display: flex;
+      background: #fff;
+      border-radius: 999px;
+      box-shadow: 0 8px 30px rgba(107,63,42,.18);
+      overflow: hidden;
+    }
+    .search-wrap input {
+      flex: 1;
+      border: none;
+      outline: none;
+      padding: .95rem 1.5rem;
+      font-size: 1rem;
+      background: transparent;
+      color: var(--text);
+    }
+    .search-wrap input::placeholder { color: var(--muted); }
+    .search-wrap button {
+      background: var(--orange);
+      border: none;
+      padding: 0 1.5rem;
+      font-size: 1.2rem;
+      cursor: pointer;
+      color: #fff;
+      transition: background .2s;
+    }
+    .search-wrap button:hover { background: var(--brown); }
+
+    .filter-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .5rem;
+      justify-content: center;
+      margin-top: 1rem;
+    }
+    .filter-btn {
+      background: #fff;
+      border: 1.5px solid #e5d5c8;
+      border-radius: 999px;
+      padding: .35rem .9rem;
+      font-size: .85rem;
+      cursor: pointer;
+      color: var(--brown);
+      font-weight: 600;
+      transition: all .2s;
+    }
+    .filter-btn:hover, .filter-btn.active {
+      background: var(--orange);
+      border-color: var(--orange);
+      color: #fff;
+    }
+
+    /* ── Grid ── */
+    .grid-section {
+      max-width: 1100px;
+      margin: 3rem auto;
+      padding: 0 1.5rem;
+    }
+    .section-label {
+      text-align: center;
+      color: var(--muted);
+      font-size: .85rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      margin-bottom: 2rem;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+
+    /* ── Cat Card ── */
+    .card {
+      background: var(--card-bg);
+      border-radius: 20px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform .25s, box-shadow .25s;
+      position: relative;
+    }
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 12px 40px rgba(107,63,42,.18);
+    }
+    .card.hidden { display: none; }
+
+    .card-banner {
+      height: 140px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 5rem;
+      position: relative;
+    }
+    .rank-badge {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      background: rgba(0,0,0,.35);
+      color: #fff;
+      font-size: .78rem;
+      font-weight: 800;
+      padding: 3px 10px;
+      border-radius: 999px;
+      letter-spacing: .04em;
+    }
+    .popularity-badge {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      font-size: .75rem;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 999px;
+    }
+    .popularity-badge.high   { background: #d1fae5; color: #065f46; }
+    .popularity-badge.medium { background: #fef3c7; color: #78350f; }
+
+    .card-body { padding: 1.25rem 1.25rem 1rem; }
+    .card-body h2 { font-size: 1.15rem; font-weight: 800; margin-bottom: .15rem; }
+    .card-body .origin { font-size: .82rem; color: var(--muted); margin-bottom: .75rem; }
+
+    .traits {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .4rem;
+      margin-bottom: .9rem;
+    }
+    .trait {
+      background: var(--cream);
+      border-radius: 999px;
+      padding: 2px 10px;
+      font-size: .78rem;
+      font-weight: 600;
+      color: var(--brown);
+    }
+
+    .card-stats {
+      display: flex;
+      gap: .5rem;
+      font-size: .8rem;
+      color: var(--muted);
+      border-top: 1px solid #f0e6dd;
+      padding-top: .75rem;
+      margin-top: .25rem;
+    }
+    .stat { display: flex; align-items: center; gap: .3rem; }
+    .stat + .stat { margin-left: auto; }
+
+    .card-desc {
+      font-size: .88rem;
+      color: #5a3825;
+      line-height: 1.55;
+      margin-bottom: .75rem;
+    }
 
     /* ── Modal ── */
-    .modal-backdrop {
+    .backdrop {
       display: none;
       position: fixed;
       inset: 0;
-      background: rgba(0,0,0,.45);
+      background: rgba(45,27,14,.55);
       z-index: 100;
       align-items: center;
       justify-content: center;
+      padding: 1rem;
     }
-    .modal-backdrop.open { display: flex; }
+    .backdrop.open { display: flex; }
+
     .modal {
       background: #fff;
-      border-radius: 16px;
-      padding: 2rem;
-      max-width: 420px;
-      width: 90%;
-      box-shadow: 0 20px 50px rgba(0,0,0,.2);
-      animation: pop .2s ease;
-    }
-    @keyframes pop {
-      from { transform: scale(.92); opacity: 0; }
-      to   { transform: scale(1);   opacity: 1; }
-    }
-    .modal h3 { margin-bottom: .5rem; }
-    .modal p  { color: #6b7280; margin-bottom: 1.25rem; }
-    .modal-actions { display: flex; gap: .75rem; justify-content: flex-end; }
-
-    /* ── Toast ── */
-    #toast-container {
-      position: fixed;
-      bottom: 1.5rem;
-      right: 1.5rem;
-      display: flex;
-      flex-direction: column;
-      gap: .5rem;
-      z-index: 200;
-    }
-    .toast {
-      padding: .75rem 1.25rem;
-      border-radius: 10px;
-      color: #fff;
-      font-size: .9rem;
-      font-weight: 600;
-      box-shadow: 0 4px 16px rgba(0,0,0,.2);
-      animation: slideIn .25s ease;
-    }
-    @keyframes slideIn {
-      from { transform: translateX(120%); opacity: 0; }
-      to   { transform: translateX(0);    opacity: 1; }
-    }
-    .toast.info    { background: #2563eb; }
-    .toast.success { background: #16a34a; }
-    .toast.warning { background: #d97706; }
-    .toast.error   { background: #dc2626; }
-
-    /* ── Progress / Loading ── */
-    .progress-track {
-      height: 12px;
-      background: #e5e7eb;
-      border-radius: 99px;
+      border-radius: 24px;
+      max-width: 520px;
+      width: 100%;
       overflow: hidden;
-      margin-bottom: .75rem;
+      box-shadow: 0 24px 60px rgba(0,0,0,.25);
+      animation: popIn .22s ease;
+      max-height: 90vh;
+      overflow-y: auto;
     }
-    .progress-fill {
-      height: 100%;
-      background: #2563eb;
-      border-radius: 99px;
-      transition: width .4s ease;
+    @keyframes popIn {
+      from { transform: scale(.9); opacity: 0; }
+      to   { transform: scale(1);  opacity: 1; }
     }
-    .spinner {
-      width: 36px; height: 36px;
-      border: 4px solid #e5e7eb;
-      border-top-color: #2563eb;
-      border-radius: 50%;
-      animation: spin .7s linear infinite;
-      display: none;
-      margin: .5rem 0;
-    }
-    @keyframes spin { to { transform: rotate(360deg); } }
 
-    /* ── Toggle ── */
-    .toggle-label {
+    .modal-banner {
+      height: 160px;
       display: flex;
       align-items: center;
-      gap: .75rem;
-      cursor: pointer;
-      font-weight: 600;
-      user-select: none;
-    }
-    .toggle-label input { display: none; }
-    .toggle-track {
-      width: 48px; height: 26px;
-      background: #d1d5db;
-      border-radius: 99px;
+      justify-content: center;
+      font-size: 6rem;
       position: relative;
-      transition: background .2s;
     }
-    .toggle-track::after {
-      content: '';
+    .modal-close {
       position: absolute;
-      top: 3px; left: 3px;
-      width: 20px; height: 20px;
-      background: #fff;
+      top: 12px; right: 14px;
+      background: rgba(0,0,0,.3);
+      color: #fff;
+      border: none;
       border-radius: 50%;
-      transition: transform .2s;
-      box-shadow: 0 1px 4px rgba(0,0,0,.2);
+      width: 32px; height: 32px;
+      font-size: 1rem;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
     }
-    .toggle-label input:checked + .toggle-track { background: #2563eb; }
-    .toggle-label input:checked + .toggle-track::after { transform: translateX(22px); }
-    #toggle-status { margin-top: .5rem; font-size: .9rem; color: #6b7280; }
+    .modal-content { padding: 1.5rem; }
+    .modal-content h2 { font-size: 1.6rem; font-weight: 800; }
+    .modal-content .origin { color: var(--muted); margin-bottom: 1rem; font-size: .9rem; }
+    .modal-content p { color: #5a3825; line-height: 1.7; margin-bottom: 1.25rem; }
+
+    .modal-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: .75rem;
+      margin-bottom: 1.25rem;
+    }
+    .info-box {
+      background: var(--cream);
+      border-radius: 12px;
+      padding: .75rem 1rem;
+    }
+    .info-box .label { font-size: .75rem; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; }
+    .info-box .value { font-size: 1rem; font-weight: 700; color: var(--brown); }
+
+    .modal-traits { display: flex; flex-wrap: wrap; gap: .4rem; }
+
+    /* ── Fun Fact Bar ── */
+    .fact-bar {
+      background: var(--orange);
+      color: #fff;
+      text-align: center;
+      padding: 1rem 2rem;
+      font-size: .95rem;
+      font-weight: 600;
+    }
+    .fact-bar span { opacity: .8; margin-right: .5rem; }
+
+    /* ── Footer ── */
+    footer {
+      text-align: center;
+      padding: 2rem;
+      color: var(--muted);
+      font-size: .85rem;
+    }
+
+    /* ── No Results ── */
+    #no-results {
+      display: none;
+      text-align: center;
+      padding: 3rem;
+      color: var(--muted);
+      font-size: 1.1rem;
+      grid-column: 1/-1;
+    }
+    #no-results span { font-size: 3rem; display: block; margin-bottom: .5rem; }
   </style>
 </head>
 <body>
 
-<header>
-  <h1>🧪 UI Component Testbed</h1>
-  <span>plain HTML/CSS/JS</span>
-</header>
+<!-- Hero -->
+<section class="hero">
+  <span class="hero-emoji">🐱</span>
+  <h1>Top 10 Household Cats</h1>
+  <p>The most popular and beloved feline companions across the United States</p>
+</section>
 
-<main>
+<!-- Search & Filter -->
+<div class="controls">
+  <div class="search-wrap">
+    <input type="text" id="search" placeholder="Search by breed or trait…" oninput="filterCats()" />
+    <button onclick="filterCats()">🔍</button>
+  </div>
+  <div class="filter-row">
+    <button class="filter-btn active" onclick="setFilter('all', this)">All</button>
+    <button class="filter-btn" onclick="setFilter('affectionate', this)">Affectionate</button>
+    <button class="filter-btn" onclick="setFilter('playful', this)">Playful</button>
+    <button class="filter-btn" onclick="setFilter('calm', this)">Calm</button>
+    <button class="filter-btn" onclick="setFilter('vocal', this)">Vocal</button>
+    <button class="filter-btn" onclick="setFilter('hypoallergenic', this)">Hypoallergenic</button>
+  </div>
+</div>
 
-  <!-- ── BUTTONS ── -->
-  <section>
-    <h2>Buttons</h2>
-    <div class="btn-row">
-      <button class="btn btn-primary"  onclick="btnFeedback('Primary clicked ✓')">Primary</button>
-      <button class="btn btn-success"  onclick="btnFeedback('Success clicked ✓')">Success</button>
-      <button class="btn btn-danger"   onclick="btnFeedback('Danger clicked ✓')">Danger</button>
-      <button class="btn btn-warning"  onclick="btnFeedback('Warning clicked ✓')">Warning</button>
-      <button class="btn btn-outline"  onclick="btnFeedback('Outline clicked ✓')">Outline</button>
-      <button class="btn btn-ghost"    onclick="btnFeedback('Ghost clicked ✓')">Ghost</button>
-      <button class="btn btn-primary"  disabled>Disabled</button>
+<!-- Grid -->
+<section class="grid-section">
+  <p class="section-label">🐾 ranked by u.s. household popularity</p>
+  <div class="grid" id="cat-grid">
+    <div id="no-results"><span>😿</span>No breeds match your search.</div>
+  </div>
+</section>
+
+<!-- Fun Fact -->
+<div class="fact-bar">
+  <span>🐾 Fun Fact:</span>
+  There are over <strong>46 million</strong> cat-owning households in the United States!
+</div>
+
+<!-- Footer -->
+<footer>
+  <p>🐱 Made with love for cat lovers everywhere &nbsp;·&nbsp; Data based on U.S. pet ownership surveys</p>
+</footer>
+
+<!-- Modal -->
+<div class="backdrop" id="backdrop" onclick="handleBackdrop(event)">
+  <div class="modal" id="modal">
+    <div class="modal-banner" id="modal-banner">
+      <button class="modal-close" onclick="closeModal()">✕</button>
     </div>
-    <div id="btn-feedback"></div>
-  </section>
-
-  <!-- ── FORM ── -->
-  <section>
-    <h2>Form Validation</h2>
-    <form id="demo-form" novalidate>
-      <div class="form-grid">
-        <div class="form-group">
-          <label for="fname">First Name *</label>
-          <input id="fname" type="text" placeholder="Jane" />
-          <span class="form-error" id="fname-err"></span>
-        </div>
-        <div class="form-group">
-          <label for="lname">Last Name *</label>
-          <input id="lname" type="text" placeholder="Doe" />
-          <span class="form-error" id="lname-err"></span>
-        </div>
-        <div class="form-group">
-          <label for="email">Email *</label>
-          <input id="email" type="email" placeholder="jane@example.com" />
-          <span class="form-error" id="email-err"></span>
-        </div>
-        <div class="form-group">
-          <label for="role">Role</label>
-          <select id="role">
-            <option value="">— Select —</option>
-            <option>Developer</option>
-            <option>Designer</option>
-            <option>Product Manager</option>
-            <option>Other</option>
-          </select>
-        </div>
-        <div class="form-group full">
-          <label for="bio">Bio</label>
-          <textarea id="bio" placeholder="Tell us about yourself…"></textarea>
-        </div>
+    <div class="modal-content">
+      <h2 id="modal-name"></h2>
+      <div class="origin" id="modal-origin"></div>
+      <p id="modal-desc"></p>
+      <div class="modal-grid">
+        <div class="info-box"><div class="label">Lifespan</div><div class="value" id="modal-life"></div></div>
+        <div class="info-box"><div class="label">Weight</div><div class="value" id="modal-weight"></div></div>
+        <div class="info-box"><div class="label">Coat</div><div class="value" id="modal-coat"></div></div>
+        <div class="info-box"><div class="label">Energy</div><div class="value" id="modal-energy"></div></div>
       </div>
-      <div style="margin-top:1rem">
-        <button type="submit" class="btn btn-primary">Submit</button>
-        <button type="button" class="btn btn-ghost" onclick="resetForm()">Reset</button>
-      </div>
-    </form>
-    <div id="form-result"></div>
-  </section>
-
-  <!-- ── TABS ── -->
-  <section>
-    <h2>Tabs</h2>
-    <div class="tabs" role="tablist">
-      <button class="tab-btn active" onclick="switchTab(event,'tab1')">Overview</button>
-      <button class="tab-btn"        onclick="switchTab(event,'tab2')">Details</button>
-      <button class="tab-btn"        onclick="switchTab(event,'tab3')">Settings</button>
-    </div>
-    <div id="tab1" class="tab-panel active">
-      <p><strong>Overview</strong> — This panel shows a summary of information. Click the other tabs to switch panels.</p>
-    </div>
-    <div id="tab2" class="tab-panel">
-      <p><strong>Details</strong> — Detailed information lives here. Tab switching is handled with pure JavaScript.</p>
-    </div>
-    <div id="tab3" class="tab-panel">
-      <p><strong>Settings</strong> — Configuration options would appear in this panel.</p>
-    </div>
-  </section>
-
-  <!-- ── DROPDOWN ── -->
-  <section>
-    <h2>Dropdown Menu</h2>
-    <div class="dropdown">
-      <button class="btn btn-outline" id="dropdown-trigger" onclick="toggleDropdown()">
-        Choose an option ▾
-      </button>
-      <div class="dropdown-menu" id="dropdown-menu">
-        <a href="#" onclick="pickOption(event,'🏠 Home')">🏠 Home</a>
-        <a href="#" onclick="pickOption(event,'📊 Dashboard')">📊 Dashboard</a>
-        <a href="#" onclick="pickOption(event,'⚙️ Settings')">⚙️ Settings</a>
-        <a href="#" onclick="pickOption(event,'🚪 Log Out')">🚪 Log Out</a>
-      </div>
-    </div>
-    <div id="dropdown-selected"></div>
-  </section>
-
-  <!-- ── MODAL ── -->
-  <section>
-    <h2>Modal Dialog</h2>
-    <button class="btn btn-primary" onclick="openModal()">Open Modal</button>
-  </section>
-
-  <!-- ── TOASTS ── -->
-  <section>
-    <h2>Toast Notifications</h2>
-    <div class="btn-row">
-      <button class="btn btn-primary" onclick="showToast('Info message!','info')">Info</button>
-      <button class="btn btn-success" onclick="showToast('Action succeeded!','success')">Success</button>
-      <button class="btn btn-warning" onclick="showToast('Watch out!','warning')">Warning</button>
-      <button class="btn btn-danger"  onclick="showToast('Something went wrong!','error')">Error</button>
-    </div>
-  </section>
-
-  <!-- ── PROGRESS & SPINNER ── -->
-  <section>
-    <h2>Progress Bar &amp; Spinner</h2>
-    <div class="progress-track">
-      <div class="progress-fill" id="progress-fill" style="width:0%"></div>
-    </div>
-    <div id="progress-label" style="font-size:.88rem;color:#6b7280;margin-bottom:.75rem">0%</div>
-    <div class="spinner" id="spinner"></div>
-    <div class="btn-row">
-      <button class="btn btn-primary" onclick="startProgress()">Run Progress</button>
-      <button class="btn btn-ghost"   onclick="resetProgress()">Reset</button>
-    </div>
-  </section>
-
-  <!-- ── TOGGLE ── -->
-  <section>
-    <h2>Toggle Switch</h2>
-    <label class="toggle-label">
-      <input type="checkbox" id="toggle" onchange="updateToggle()" />
-      <span class="toggle-track"></span>
-      Enable feature
-    </label>
-    <div id="toggle-status">Feature is <strong>OFF</strong></div>
-  </section>
-
-</main>
-
-<!-- Modal markup -->
-<div class="modal-backdrop" id="modal-backdrop" onclick="handleBackdropClick(event)">
-  <div class="modal" role="dialog" aria-modal="true">
-    <h3>Confirm Action</h3>
-    <p>This is a sample modal dialog. You can place any content here — confirmations, forms, images, and more.</p>
-    <div class="modal-actions">
-      <button class="btn btn-ghost"   onclick="closeModal()">Cancel</button>
-      <button class="btn btn-primary" onclick="confirmModal()">Confirm</button>
+      <div class="modal-traits" id="modal-traits"></div>
     </div>
   </div>
 </div>
 
-<!-- Toast container -->
-<div id="toast-container"></div>
-
 <script>
-  /* ── Buttons ── */
-  function btnFeedback(msg) {
-    const el = document.getElementById('btn-feedback');
-    el.textContent = msg;
-    clearTimeout(el._t);
-    el._t = setTimeout(() => el.textContent = '', 2000);
+const cats = [
+  {
+    rank: 1,
+    name: "Domestic Shorthair",
+    origin: "Mixed Breed · United States",
+    emoji: "🐱",
+    color: "linear-gradient(135deg,#f9a825,#f57f17)",
+    traits: ["Adaptable","Playful","Independent","Hardy"],
+    lifespan: "12–18 yrs",
+    weight: "6–16 lbs",
+    coat: "Short, Dense",
+    energy: "⚡⚡⚡",
+    popularity: "high",
+    filters: ["playful","affectionate"],
+    shortDesc: "America's most common cat — a mixed-breed charmer with a unique personality.",
+    fullDesc: "The Domestic Shorthair is not a breed but a category of mixed-breed cats with short coats. They make up around 90–95% of all cats in the United States. Known for their hardy genetics and wildly varied appearances, each one has a completely unique personality. They are adaptable, affectionate with their families, and make excellent companions for all lifestyles."
+  },
+  {
+    rank: 2,
+    name: "Maine Coon",
+    origin: "Breed · Maine, USA",
+    emoji: "🦁",
+    color: "linear-gradient(135deg,#8d6e63,#4e342e)",
+    traits: ["Gentle Giant","Sociable","Playful","Dog-like"],
+    lifespan: "12–15 yrs",
+    weight: "10–25 lbs",
+    coat: "Long, Silky",
+    energy: "⚡⚡⚡",
+    popularity: "high",
+    filters: ["playful","affectionate"],
+    shortDesc: "One of the largest domestic breeds — fluffy, friendly, and endlessly curious.",
+    fullDesc: "The Maine Coon is one of the oldest and largest natural cat breeds in North America. Often called the 'dog of the cat world,' they love to follow their owners around, play fetch, and even learn tricks. Their thick, water-resistant coats and tufted ears hint at their cold-weather New England origins. They are gentle, highly sociable, and great with children and other pets."
+  },
+  {
+    rank: 3,
+    name: "Ragdoll",
+    origin: "Breed · California, USA",
+    emoji: "🤍",
+    color: "linear-gradient(135deg,#b3c8e8,#7b9cbf)",
+    traits: ["Calm","Cuddly","Gentle","Quiet"],
+    lifespan: "12–17 yrs",
+    weight: "10–20 lbs",
+    coat: "Semi-long, Silky",
+    energy: "⚡",
+    popularity: "high",
+    filters: ["calm","affectionate"],
+    shortDesc: "Named for going limp when held — the ultimate lap cat.",
+    fullDesc: "Ragdolls are known for their docile, calm temperament and tendency to go limp when picked up — hence the name. They are strikingly beautiful with blue eyes and pointed coloring. Ragdolls are one of the most affectionate cat breeds, often greeting their owners at the door and following them from room to room. They are ideal for apartment living and families with children."
+  },
+  {
+    rank: 4,
+    name: "Bengal",
+    origin: "Breed · United States",
+    emoji: "🐆",
+    color: "linear-gradient(135deg,#f9a825,#388e3c)",
+    traits: ["Athletic","Curious","Vocal","Wild Look"],
+    lifespan: "12–16 yrs",
+    weight: "8–15 lbs",
+    coat: "Short, Spotted",
+    energy: "⚡⚡⚡⚡",
+    popularity: "high",
+    filters: ["playful","vocal"],
+    shortDesc: "A wild-looking cat with a domestic heart — energetic and strikingly beautiful.",
+    fullDesc: "Bengals were created by crossing domestic cats with the Asian Leopard Cat. The result is a stunning spotted or marbled coat that resembles a wild jungle cat. Don't let the looks fool you — Bengals are fully domesticated and crave human interaction. They are highly active, intelligent, and need lots of stimulation. They often enjoy water and can learn to walk on a leash."
+  },
+  {
+    rank: 5,
+    name: "Siamese",
+    origin: "Breed · Thailand",
+    emoji: "👁️",
+    color: "linear-gradient(135deg,#90caf9,#1565c0)",
+    traits: ["Vocal","Affectionate","Social","Elegant"],
+    lifespan: "15–20 yrs",
+    weight: "6–14 lbs",
+    coat: "Short, Fine",
+    energy: "⚡⚡⚡",
+    popularity: "high",
+    filters: ["vocal","affectionate","playful"],
+    shortDesc: "One of the oldest and most vocal breeds — chatty, elegant, and deeply bonded to owners.",
+    fullDesc: "The Siamese is one of the world's oldest and most recognized cat breeds, originating from Thailand (formerly Siam). They are known for their striking blue eyes, color-point coats, and incredibly vocal personalities. Siamese cats love to 'talk' and will have full conversations with their owners. They form deep bonds and can suffer from loneliness if left alone too long — they thrive with company."
+  },
+  {
+    rank: 6,
+    name: "Persian",
+    origin: "Breed · Iran (Persia)",
+    emoji: "👑",
+    color: "linear-gradient(135deg,#f8bbd0,#c2185b)",
+    traits: ["Calm","Quiet","Affectionate","Regal"],
+    lifespan: "12–18 yrs",
+    weight: "7–12 lbs",
+    coat: "Long, Luxurious",
+    energy: "⚡",
+    popularity: "high",
+    filters: ["calm","affectionate"],
+    shortDesc: "The ultimate glamour cat — serene, regal, and made for indoor royalty.",
+    fullDesc: "Persians are one of the most popular and recognizable cat breeds, known for their long, flowing coats, flat faces, and calm demeanor. They are quiet, gentle cats that prefer a serene environment. Persians love to lounge and be admired, making them perfect indoor companions. Their coats require daily grooming to prevent matting. They are loyal and affectionate with their trusted humans."
+  },
+  {
+    rank: 7,
+    name: "American Shorthair",
+    origin: "Breed · United States",
+    emoji: "🇺🇸",
+    color: "linear-gradient(135deg,#ef9a9a,#c62828)",
+    traits: ["Easy-going","Healthy","Playful","Good with kids"],
+    lifespan: "15–20 yrs",
+    weight: "8–15 lbs",
+    coat: "Short, Dense",
+    energy: "⚡⚡",
+    popularity: "high",
+    filters: ["calm","playful","affectionate"],
+    shortDesc: "A true American — hardy, easy-going, and perfect for any family.",
+    fullDesc: "The American Shorthair is descended from cats brought to North America by early European settlers. They were bred for health, temperament, and hunting ability. Today they are beloved for their easy-going, adaptable nature. American Shorthairs get along well with children, dogs, and other cats. They are not overly demanding and are content to entertain themselves but still enjoy family time."
+  },
+  {
+    rank: 8,
+    name: "British Shorthair",
+    origin: "Breed · United Kingdom",
+    emoji: "🫐",
+    color: "linear-gradient(135deg,#b0bec5,#37474f)",
+    traits: ["Calm","Independent","Loyal","Stocky"],
+    lifespan: "12–17 yrs",
+    weight: "7–17 lbs",
+    coat: "Short, Plush",
+    energy: "⚡⚡",
+    popularity: "medium",
+    filters: ["calm"],
+    shortDesc: "Round-faced and plush — the teddy bear of the cat world.",
+    fullDesc: "The British Shorthair is known for its round face, dense plush coat, and sturdy body. They are calm, undemanding, and adapt well to indoor living. While affectionate, they are not clingy — they enjoy being near their owners without needing to be held constantly. Their easygoing nature makes them excellent companions for families, singles, and seniors alike. The blue (grey) variety is the most iconic."
+  },
+  {
+    rank: 9,
+    name: "Abyssinian",
+    origin: "Breed · Ethiopia",
+    emoji: "🏃",
+    color: "linear-gradient(135deg,#ffcc80,#e65100)",
+    traits: ["Active","Curious","Intelligent","Acrobatic"],
+    lifespan: "9–15 yrs",
+    weight: "6–10 lbs",
+    coat: "Short, Ticked",
+    energy: "⚡⚡⚡⚡",
+    popularity: "medium",
+    filters: ["playful"],
+    shortDesc: "The athlete of the cat world — always moving, always curious.",
+    fullDesc: "Abyssinians are one of the oldest known cat breeds and are beloved for their slender, muscular build and distinctive ticked coat. They are incredibly active, curious, and love to explore every inch of their environment. Abyssinians are known as the 'clowns of the cat kingdom' for their playful, mischievous antics. They thrive in active households and need plenty of toys and vertical space to climb."
+  },
+  {
+    rank: 10,
+    name: "Sphynx",
+    origin: "Breed · Toronto, Canada",
+    emoji: "🌡️",
+    color: "linear-gradient(135deg,#ffe082,#ff8f00)",
+    traits: ["Warm","Attention-loving","Social","Hypoallergenic"],
+    lifespan: "8–14 yrs",
+    weight: "6–12 lbs",
+    coat: "Hairless",
+    energy: "⚡⚡⚡",
+    popularity: "medium",
+    filters: ["affectionate","hypoallergenic","playful","vocal"],
+    shortDesc: "Bald, warm, and endlessly loving — surprisingly cuddly without any fur.",
+    fullDesc: "The Sphynx is the most distinctive of all cat breeds, famous for its hairless appearance. Despite looking aloof, Sphynx cats are extraordinarily social, affectionate, and even dog-like in their devotion to their owners. Their skin feels like warm suede to the touch. Because they lack fur for insulation, they seek warmth — making them natural lap cats. They are often recommended for people with mild cat allergies."
   }
+];
 
-  /* ── Form ── */
-  document.getElementById('demo-form').addEventListener('submit', function(e) {
-    e.preventDefault();
-    let valid = true;
+let activeFilter = 'all';
 
-    const fields = [
-      { id: 'fname', errId: 'fname-err', msg: 'First name is required.' },
-      { id: 'lname', errId: 'lname-err', msg: 'Last name is required.'  },
-    ];
-    fields.forEach(f => {
-      const el = document.getElementById(f.id);
-      const err = document.getElementById(f.errId);
-      if (!el.value.trim()) { err.textContent = f.msg; valid = false; }
-      else err.textContent = '';
-    });
+function buildCards() {
+  const grid = document.getElementById('cat-grid');
+  grid.innerHTML = '<div id="no-results" style="display:none"><span>😿</span>No breeds match your search.</div>';
 
-    const emailEl  = document.getElementById('email');
-    const emailErr = document.getElementById('email-err');
-    if (!emailEl.value.trim()) {
-      emailErr.textContent = 'Email is required.'; valid = false;
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailEl.value)) {
-      emailErr.textContent = 'Enter a valid email.'; valid = false;
+  cats.forEach(cat => {
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.dataset.name = cat.name.toLowerCase();
+    card.dataset.traits = cat.traits.join(' ').toLowerCase();
+    card.dataset.filters = cat.filters.join(' ');
+    card.onclick = () => openModal(cat);
+
+    card.innerHTML = `
+      <div class="card-banner" style="background:${cat.color}">
+        <span class="rank-badge">#${cat.rank}</span>
+        <span style="line-height:1">${cat.emoji}</span>
+        <span class="popularity-badge ${cat.popularity}">${cat.popularity === 'high' ? '🔥 Very Popular' : '⭐ Popular'}</span>
+      </div>
+      <div class="card-body">
+        <h2>${cat.name}</h2>
+        <div class="origin">${cat.origin}</div>
+        <p class="card-desc">${cat.shortDesc}</p>
+        <div class="traits">
+          ${cat.traits.map(t => `<span class="trait">${t}</span>`).join('')}
+        </div>
+        <div class="card-stats">
+          <span class="stat">⏳ ${cat.lifespan}</span>
+          <span class="stat">⚖️ ${cat.weight}</span>
+        </div>
+      </div>
+    `;
+    grid.appendChild(card);
+  });
+}
+
+function filterCats() {
+  const query = document.getElementById('search').value.toLowerCase().trim();
+  const cards = document.querySelectorAll('.card');
+  let visible = 0;
+
+  cards.forEach(card => {
+    const matchSearch = !query || card.dataset.name.includes(query) || card.dataset.traits.includes(query);
+    const matchFilter = activeFilter === 'all' || card.dataset.filters.includes(activeFilter);
+    if (matchSearch && matchFilter) {
+      card.classList.remove('hidden');
+      visible++;
     } else {
-      emailErr.textContent = '';
-    }
-
-    const result = document.getElementById('form-result');
-    if (valid) {
-      result.className = 'success';
-      result.style.display = 'block';
-      result.textContent = `✅ Submitted! Welcome, ${document.getElementById('fname').value}.`;
-    } else {
-      result.className = 'error';
-      result.style.display = 'block';
-      result.textContent = '❌ Please fix the errors above.';
+      card.classList.add('hidden');
     }
   });
 
-  function resetForm() {
-    document.getElementById('demo-form').reset();
-    ['fname-err','lname-err','email-err'].forEach(id => document.getElementById(id).textContent = '');
-    const r = document.getElementById('form-result');
-    r.style.display = 'none'; r.className = '';
-  }
+  document.getElementById('no-results').style.display = visible === 0 ? 'block' : 'none';
+}
 
-  /* ── Tabs ── */
-  function switchTab(e, panelId) {
-    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
-    e.target.classList.add('active');
-    document.getElementById(panelId).classList.add('active');
-  }
+function setFilter(filter, btn) {
+  activeFilter = filter;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  filterCats();
+}
 
-  /* ── Dropdown ── */
-  function toggleDropdown() {
-    document.getElementById('dropdown-menu').classList.toggle('open');
-  }
-  function pickOption(e, label) {
-    e.preventDefault();
-    document.getElementById('dropdown-selected').textContent = 'Selected: ' + label;
-    document.getElementById('dropdown-menu').classList.remove('open');
-  }
-  document.addEventListener('click', function(e) {
-    if (!e.target.closest('.dropdown'))
-      document.getElementById('dropdown-menu').classList.remove('open');
-  });
+function openModal(cat) {
+  document.getElementById('modal-banner').style.background = cat.color;
+  document.getElementById('modal-banner').querySelector('span') &&
+    document.getElementById('modal-banner').childNodes.forEach(n => { if (n.tagName === 'SPAN' && !n.classList.contains('modal-close')) n.remove(); });
 
-  /* ── Modal ── */
-  function openModal()  { document.getElementById('modal-backdrop').classList.add('open'); }
-  function closeModal() { document.getElementById('modal-backdrop').classList.remove('open'); }
-  function confirmModal() {
-    closeModal();
-    showToast('Action confirmed!', 'success');
-  }
-  function handleBackdropClick(e) {
-    if (e.target === e.currentTarget) closeModal();
-  }
+  const emojiEl = document.createElement('span');
+  emojiEl.textContent = cat.emoji;
+  emojiEl.style.cssText = 'font-size:5rem;line-height:1';
+  document.getElementById('modal-banner').appendChild(emojiEl);
 
-  /* ── Toasts ── */
-  function showToast(msg, type = 'info', duration = 3000) {
-    const container = document.getElementById('toast-container');
-    const toast = document.createElement('div');
-    toast.className = `toast ${type}`;
-    toast.textContent = msg;
-    container.appendChild(toast);
-    setTimeout(() => toast.remove(), duration);
-  }
+  document.getElementById('modal-name').textContent = `#${cat.rank} — ${cat.name}`;
+  document.getElementById('modal-origin').textContent = cat.origin;
+  document.getElementById('modal-desc').textContent = cat.fullDesc;
+  document.getElementById('modal-life').textContent = cat.lifespan;
+  document.getElementById('modal-weight').textContent = cat.weight;
+  document.getElementById('modal-coat').textContent = cat.coat;
+  document.getElementById('modal-energy').textContent = cat.energy;
+  document.getElementById('modal-traits').innerHTML = cat.traits.map(t => `<span class="trait">${t}</span>`).join('');
 
-  /* ── Progress ── */
-  let progressInterval = null;
-  function startProgress() {
-    resetProgress();
-    const fill  = document.getElementById('progress-fill');
-    const label = document.getElementById('progress-label');
-    const spinner = document.getElementById('spinner');
-    spinner.style.display = 'block';
-    let pct = 0;
-    progressInterval = setInterval(() => {
-      pct = Math.min(pct + Math.random() * 8 + 2, 100);
-      fill.style.width = pct + '%';
-      label.textContent = Math.round(pct) + '%';
-      if (pct >= 100) {
-        clearInterval(progressInterval);
-        spinner.style.display = 'none';
-        showToast('Progress complete!', 'success');
-      }
-    }, 200);
-  }
-  function resetProgress() {
-    clearInterval(progressInterval);
-    document.getElementById('progress-fill').style.width = '0%';
-    document.getElementById('progress-label').textContent = '0%';
-    document.getElementById('spinner').style.display = 'none';
-  }
+  document.getElementById('backdrop').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
 
-  /* ── Toggle ── */
-  function updateToggle() {
-    const on = document.getElementById('toggle').checked;
-    document.getElementById('toggle-status').innerHTML =
-      `Feature is <strong>${on ? 'ON' : 'OFF'}</strong>`;
-    showToast(`Feature turned ${on ? 'on' : 'off'}`, on ? 'success' : 'info', 2000);
-  }
+function closeModal() {
+  document.getElementById('backdrop').classList.remove('open');
+  document.body.style.overflow = '';
+  // remove dynamically added emoji
+  const banner = document.getElementById('modal-banner');
+  banner.querySelectorAll('span:not(.modal-close)').forEach(el => el.remove());
+}
+
+function handleBackdrop(e) {
+  if (e.target === e.currentTarget) closeModal();
+}
+
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+// Init
+buildCards();
 </script>
 </body>
 </html>
