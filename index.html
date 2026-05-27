@@ -5,183 +5,101 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Top 10 Household Cats in the U.S.</title>
   <style>
-    /* ── Reset & Base ── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
       --cream: #fdf6ec;
       --brown: #6b3f2a;
       --orange: #e07b39;
-      --orange-light: #f5a96a;
       --card-bg: #fff;
       --text: #2d1b0e;
       --muted: #8c6a55;
       --shadow: 0 4px 24px rgba(107,63,42,.12);
     }
     html { scroll-behavior: smooth; }
-    body {
-      font-family: system-ui, -apple-system, sans-serif;
-      background: var(--cream);
-      color: var(--text);
-      line-height: 1.6;
-    }
+    body { font-family: system-ui, -apple-system, sans-serif; background: var(--cream); color: var(--text); line-height: 1.6; }
 
-    /* ── Hero ── */
+    /* Hero */
     .hero {
       background: linear-gradient(135deg, #6b3f2a 0%, #c0622a 60%, #e07b39 100%);
-      color: #fff;
-      text-align: center;
-      padding: 4rem 1.5rem 5rem;
-      position: relative;
-      overflow: hidden;
+      color: #fff; text-align: center; padding: 4rem 1.5rem 5rem;
+      position: relative; overflow: hidden;
     }
     .hero::before {
-      content: '🐾';
-      position: absolute;
-      font-size: 18rem;
-      opacity: .06;
-      top: -2rem;
-      right: -2rem;
-      line-height: 1;
+      content: '🐾'; position: absolute; font-size: 18rem;
+      opacity: .06; top: -2rem; right: -2rem; line-height: 1;
     }
-    .hero h1 {
-      font-size: clamp(2rem, 5vw, 3.2rem);
-      font-weight: 800;
-      letter-spacing: -.02em;
-      margin-bottom: .5rem;
-    }
-    .hero p {
-      font-size: 1.1rem;
-      opacity: .85;
-      max-width: 520px;
-      margin: 0 auto 1.75rem;
-    }
+    .hero h1 { font-size: clamp(2rem,5vw,3.2rem); font-weight: 800; letter-spacing: -.02em; margin-bottom: .5rem; }
+    .hero p  { font-size: 1.1rem; opacity: .85; max-width: 520px; margin: 0 auto 1.75rem; }
     .hero-emoji { font-size: 3rem; display: block; margin-bottom: .75rem; }
 
-    /* ── Search / Filter ── */
-    .controls {
-      max-width: 700px;
-      margin: -1.75rem auto 0;
-      padding: 0 1.5rem;
-      position: relative;
-      z-index: 10;
-    }
+    /* Search */
+    .controls { max-width: 700px; margin: -1.75rem auto 0; padding: 0 1.5rem; position: relative; z-index: 10; }
     .search-wrap {
-      display: flex;
-      background: #fff;
-      border-radius: 999px;
-      box-shadow: 0 8px 30px rgba(107,63,42,.18);
-      overflow: hidden;
+      display: flex; background: #fff; border-radius: 999px;
+      box-shadow: 0 8px 30px rgba(107,63,42,.18); overflow: hidden;
     }
     .search-wrap input {
-      flex: 1;
-      border: none;
-      outline: none;
-      padding: .95rem 1.5rem;
-      font-size: 1rem;
-      background: transparent;
-      color: var(--text);
+      flex: 1; border: none; outline: none; padding: .95rem 1.5rem;
+      font-size: 1rem; background: transparent; color: var(--text);
     }
     .search-wrap input::placeholder { color: var(--muted); }
     .search-wrap button {
-      background: var(--orange);
-      border: none;
-      padding: 0 1.5rem;
-      font-size: 1.2rem;
-      cursor: pointer;
-      color: #fff;
-      transition: background .2s;
+      background: var(--orange); border: none; padding: 0 1.5rem;
+      font-size: 1.2rem; cursor: pointer; color: #fff; transition: background .2s;
     }
     .search-wrap button:hover { background: var(--brown); }
 
-    .filter-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: .5rem;
-      justify-content: center;
-      margin-top: 1rem;
-    }
+    .filter-row { display: flex; flex-wrap: wrap; gap: .5rem; justify-content: center; margin-top: 1rem; }
     .filter-btn {
-      background: #fff;
-      border: 1.5px solid #e5d5c8;
-      border-radius: 999px;
-      padding: .35rem .9rem;
-      font-size: .85rem;
-      cursor: pointer;
-      color: var(--brown);
-      font-weight: 600;
-      transition: all .2s;
+      background: #fff; border: 1.5px solid #e5d5c8; border-radius: 999px;
+      padding: .35rem .9rem; font-size: .85rem; cursor: pointer;
+      color: var(--brown); font-weight: 600; transition: all .2s;
     }
-    .filter-btn:hover, .filter-btn.active {
-      background: var(--orange);
-      border-color: var(--orange);
-      color: #fff;
-    }
+    .filter-btn:hover, .filter-btn.active { background: var(--orange); border-color: var(--orange); color: #fff; }
 
-    /* ── Grid ── */
-    .grid-section {
-      max-width: 1100px;
-      margin: 3rem auto;
-      padding: 0 1.5rem;
-    }
+    /* Grid */
+    .grid-section { max-width: 1100px; margin: 3rem auto; padding: 0 1.5rem; }
     .section-label {
-      text-align: center;
-      color: var(--muted);
-      font-size: .85rem;
-      font-weight: 700;
-      letter-spacing: .1em;
-      text-transform: uppercase;
-      margin-bottom: 2rem;
+      text-align: center; color: var(--muted); font-size: .85rem;
+      font-weight: 700; letter-spacing: .1em; text-transform: uppercase; margin-bottom: 2rem;
     }
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 1.5rem;
-    }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; }
 
-    /* ── Cat Card ── */
+    /* Card */
     .card {
-      background: var(--card-bg);
-      border-radius: 20px;
-      box-shadow: var(--shadow);
-      overflow: hidden;
-      cursor: pointer;
-      transition: transform .25s, box-shadow .25s;
-      position: relative;
+      background: var(--card-bg); border-radius: 20px; box-shadow: var(--shadow);
+      overflow: hidden; cursor: pointer; transition: transform .25s, box-shadow .25s;
     }
-    .card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 12px 40px rgba(107,63,42,.18);
-    }
+    .card:hover { transform: translateY(-6px); box-shadow: 0 12px 40px rgba(107,63,42,.2); }
     .card.hidden { display: none; }
 
     .card-banner {
-      height: 140px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 5rem;
-      position: relative;
+      height: 200px; position: relative; overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
     }
+    .card-banner img {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+      transition: transform .4s ease;
+    }
+    .card:hover .card-banner img { transform: scale(1.06); }
+    .card-banner .fallback {
+      font-size: 5rem; line-height: 1; position: absolute;
+    }
+    .card-banner .img-gradient {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,.45) 0%, transparent 60%);
+    }
+
     .rank-badge {
-      position: absolute;
-      top: 12px;
-      left: 12px;
-      background: rgba(0,0,0,.35);
-      color: #fff;
-      font-size: .78rem;
-      font-weight: 800;
-      padding: 3px 10px;
-      border-radius: 999px;
-      letter-spacing: .04em;
+      position: absolute; top: 12px; left: 12px;
+      background: rgba(0,0,0,.4); color: #fff;
+      font-size: .78rem; font-weight: 800; padding: 3px 10px;
+      border-radius: 999px; letter-spacing: .04em; z-index: 2;
     }
     .popularity-badge {
-      position: absolute;
-      top: 12px;
-      right: 12px;
-      font-size: .75rem;
-      font-weight: 700;
-      padding: 3px 10px;
-      border-radius: 999px;
+      position: absolute; top: 12px; right: 12px;
+      font-size: .75rem; font-weight: 700; padding: 3px 10px;
+      border-radius: 999px; z-index: 2;
     }
     .popularity-badge.high   { background: #d1fae5; color: #065f46; }
     .popularity-badge.medium { background: #fef3c7; color: #78350f; }
@@ -189,168 +107,99 @@
     .card-body { padding: 1.25rem 1.25rem 1rem; }
     .card-body h2 { font-size: 1.15rem; font-weight: 800; margin-bottom: .15rem; }
     .card-body .origin { font-size: .82rem; color: var(--muted); margin-bottom: .75rem; }
+    .card-desc { font-size: .88rem; color: #5a3825; line-height: 1.55; margin-bottom: .75rem; }
 
-    .traits {
-      display: flex;
-      flex-wrap: wrap;
-      gap: .4rem;
-      margin-bottom: .9rem;
-    }
+    .traits { display: flex; flex-wrap: wrap; gap: .4rem; margin-bottom: .9rem; }
     .trait {
-      background: var(--cream);
-      border-radius: 999px;
-      padding: 2px 10px;
-      font-size: .78rem;
-      font-weight: 600;
-      color: var(--brown);
+      background: var(--cream); border-radius: 999px; padding: 2px 10px;
+      font-size: .78rem; font-weight: 600; color: var(--brown);
     }
 
     .card-stats {
-      display: flex;
-      gap: .5rem;
-      font-size: .8rem;
-      color: var(--muted);
-      border-top: 1px solid #f0e6dd;
-      padding-top: .75rem;
-      margin-top: .25rem;
+      display: flex; gap: .5rem; font-size: .8rem; color: var(--muted);
+      border-top: 1px solid #f0e6dd; padding-top: .75rem;
     }
-    .stat { display: flex; align-items: center; gap: .3rem; }
     .stat + .stat { margin-left: auto; }
 
-    .card-desc {
-      font-size: .88rem;
-      color: #5a3825;
-      line-height: 1.55;
-      margin-bottom: .75rem;
-    }
-
-    /* ── Modal ── */
+    /* Modal */
     .backdrop {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(45,27,14,.55);
-      z-index: 100;
-      align-items: center;
-      justify-content: center;
-      padding: 1rem;
+      display: none; position: fixed; inset: 0;
+      background: rgba(45,27,14,.55); z-index: 100;
+      align-items: center; justify-content: center; padding: 1rem;
     }
     .backdrop.open { display: flex; }
-
     .modal {
-      background: #fff;
-      border-radius: 24px;
-      max-width: 520px;
-      width: 100%;
-      overflow: hidden;
-      box-shadow: 0 24px 60px rgba(0,0,0,.25);
-      animation: popIn .22s ease;
-      max-height: 90vh;
-      overflow-y: auto;
+      background: #fff; border-radius: 24px; max-width: 520px; width: 100%;
+      overflow: hidden; box-shadow: 0 24px 60px rgba(0,0,0,.25);
+      animation: popIn .22s ease; max-height: 90vh; overflow-y: auto;
     }
-    @keyframes popIn {
-      from { transform: scale(.9); opacity: 0; }
-      to   { transform: scale(1);  opacity: 1; }
-    }
+    @keyframes popIn { from { transform: scale(.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
 
     .modal-banner {
-      height: 160px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 6rem;
-      position: relative;
-    }
-    .modal-close {
-      position: absolute;
-      top: 12px; right: 14px;
-      background: rgba(0,0,0,.3);
-      color: #fff;
-      border: none;
-      border-radius: 50%;
-      width: 32px; height: 32px;
-      font-size: 1rem;
-      cursor: pointer;
+      height: 260px; position: relative; overflow: hidden;
       display: flex; align-items: center; justify-content: center;
     }
+    .modal-banner img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .modal-banner .fallback { font-size: 6rem; line-height: 1; position: absolute; }
+    .modal-banner .img-gradient {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,.5) 0%, transparent 55%);
+    }
+    .modal-banner-title {
+      position: absolute; bottom: 14px; left: 18px;
+      color: #fff; font-size: 1.5rem; font-weight: 800; z-index: 2;
+      text-shadow: 0 2px 8px rgba(0,0,0,.5);
+    }
+    .modal-close {
+      position: absolute; top: 12px; right: 14px; z-index: 3;
+      background: rgba(0,0,0,.35); color: #fff; border: none;
+      border-radius: 50%; width: 32px; height: 32px;
+      font-size: 1rem; cursor: pointer; display: flex; align-items: center; justify-content: center;
+    }
+
     .modal-content { padding: 1.5rem; }
-    .modal-content h2 { font-size: 1.6rem; font-weight: 800; }
     .modal-content .origin { color: var(--muted); margin-bottom: 1rem; font-size: .9rem; }
     .modal-content p { color: #5a3825; line-height: 1.7; margin-bottom: 1.25rem; }
 
-    .modal-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: .75rem;
-      margin-bottom: 1.25rem;
-    }
-    .info-box {
-      background: var(--cream);
-      border-radius: 12px;
-      padding: .75rem 1rem;
-    }
+    .modal-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .75rem; margin-bottom: 1.25rem; }
+    .info-box { background: var(--cream); border-radius: 12px; padding: .75rem 1rem; }
     .info-box .label { font-size: .75rem; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; }
     .info-box .value { font-size: 1rem; font-weight: 700; color: var(--brown); }
 
     .modal-traits { display: flex; flex-wrap: wrap; gap: .4rem; }
 
-    /* ── Fun Fact Bar ── */
-    .fact-bar {
-      background: var(--orange);
-      color: #fff;
-      text-align: center;
-      padding: 1rem 2rem;
-      font-size: .95rem;
-      font-weight: 600;
-    }
+    /* Fact bar & footer */
+    .fact-bar { background: var(--orange); color: #fff; text-align: center; padding: 1rem 2rem; font-size: .95rem; font-weight: 600; }
     .fact-bar span { opacity: .8; margin-right: .5rem; }
+    footer { text-align: center; padding: 2rem; color: var(--muted); font-size: .85rem; }
 
-    /* ── Footer ── */
-    footer {
-      text-align: center;
-      padding: 2rem;
-      color: var(--muted);
-      font-size: .85rem;
-    }
-
-    /* ── No Results ── */
-    #no-results {
-      display: none;
-      text-align: center;
-      padding: 3rem;
-      color: var(--muted);
-      font-size: 1.1rem;
-      grid-column: 1/-1;
-    }
+    #no-results { display: none; text-align: center; padding: 3rem; color: var(--muted); font-size: 1.1rem; grid-column: 1/-1; }
     #no-results span { font-size: 3rem; display: block; margin-bottom: .5rem; }
   </style>
 </head>
 <body>
 
-<!-- Hero -->
 <section class="hero">
   <span class="hero-emoji">🐱</span>
   <h1>Top 10 Household Cats</h1>
   <p>The most popular and beloved feline companions across the United States</p>
 </section>
 
-<!-- Search & Filter -->
 <div class="controls">
   <div class="search-wrap">
     <input type="text" id="search" placeholder="Search by breed or trait…" oninput="filterCats()" />
     <button onclick="filterCats()">🔍</button>
   </div>
   <div class="filter-row">
-    <button class="filter-btn active" onclick="setFilter('all', this)">All</button>
-    <button class="filter-btn" onclick="setFilter('affectionate', this)">Affectionate</button>
-    <button class="filter-btn" onclick="setFilter('playful', this)">Playful</button>
-    <button class="filter-btn" onclick="setFilter('calm', this)">Calm</button>
-    <button class="filter-btn" onclick="setFilter('vocal', this)">Vocal</button>
-    <button class="filter-btn" onclick="setFilter('hypoallergenic', this)">Hypoallergenic</button>
+    <button class="filter-btn active" onclick="setFilter('all',this)">All</button>
+    <button class="filter-btn" onclick="setFilter('affectionate',this)">Affectionate</button>
+    <button class="filter-btn" onclick="setFilter('playful',this)">Playful</button>
+    <button class="filter-btn" onclick="setFilter('calm',this)">Calm</button>
+    <button class="filter-btn" onclick="setFilter('vocal',this)">Vocal</button>
+    <button class="filter-btn" onclick="setFilter('hypoallergenic',this)">Hypoallergenic</button>
   </div>
 </div>
 
-<!-- Grid -->
 <section class="grid-section">
   <p class="section-label">🐾 ranked by u.s. household popularity</p>
   <div class="grid" id="cat-grid">
@@ -358,13 +207,11 @@
   </div>
 </section>
 
-<!-- Fun Fact -->
 <div class="fact-bar">
   <span>🐾 Fun Fact:</span>
   There are over <strong>46 million</strong> cat-owning households in the United States!
 </div>
 
-<!-- Footer -->
 <footer>
   <p>🐱 Made with love for cat lovers everywhere &nbsp;·&nbsp; Data based on U.S. pet ownership surveys</p>
 </footer>
@@ -374,9 +221,10 @@
   <div class="modal" id="modal">
     <div class="modal-banner" id="modal-banner">
       <button class="modal-close" onclick="closeModal()">✕</button>
+      <div class="img-gradient"></div>
+      <div class="modal-banner-title" id="modal-banner-title"></div>
     </div>
     <div class="modal-content">
-      <h2 id="modal-name"></h2>
       <div class="origin" id="modal-origin"></div>
       <p id="modal-desc"></p>
       <div class="modal-grid">
@@ -393,162 +241,102 @@
 <script>
 const cats = [
   {
-    rank: 1,
-    name: "Domestic Shorthair",
-    origin: "Mixed Breed · United States",
-    emoji: "🐱",
-    color: "linear-gradient(135deg,#f9a825,#f57f17)",
+    rank: 1, name: "Domestic Shorthair", origin: "Mixed Breed · United States", emoji: "🐱",
+    img: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bb/Kittyply_edit1.jpg/600px-Kittyply_edit1.jpg",
+    color: "#f9a825",
     traits: ["Adaptable","Playful","Independent","Hardy"],
-    lifespan: "12–18 yrs",
-    weight: "6–16 lbs",
-    coat: "Short, Dense",
-    energy: "⚡⚡⚡",
-    popularity: "high",
-    filters: ["playful","affectionate"],
+    lifespan: "12–18 yrs", weight: "6–16 lbs", coat: "Short, Dense", energy: "⚡⚡⚡",
+    popularity: "high", filters: ["playful","affectionate"],
     shortDesc: "America's most common cat — a mixed-breed charmer with a unique personality.",
     fullDesc: "The Domestic Shorthair is not a breed but a category of mixed-breed cats with short coats. They make up around 90–95% of all cats in the United States. Known for their hardy genetics and wildly varied appearances, each one has a completely unique personality. They are adaptable, affectionate with their families, and make excellent companions for all lifestyles."
   },
   {
-    rank: 2,
-    name: "Maine Coon",
-    origin: "Breed · Maine, USA",
-    emoji: "🦁",
-    color: "linear-gradient(135deg,#8d6e63,#4e342e)",
+    rank: 2, name: "Maine Coon", origin: "Breed · Maine, USA", emoji: "🦁",
+    img: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Maine_Coon_cat_by_Tomitheos.JPG/600px-Maine_Coon_cat_by_Tomitheos.JPG",
+    color: "#8d6e63",
     traits: ["Gentle Giant","Sociable","Playful","Dog-like"],
-    lifespan: "12–15 yrs",
-    weight: "10–25 lbs",
-    coat: "Long, Silky",
-    energy: "⚡⚡⚡",
-    popularity: "high",
-    filters: ["playful","affectionate"],
+    lifespan: "12–15 yrs", weight: "10–25 lbs", coat: "Long, Silky", energy: "⚡⚡⚡",
+    popularity: "high", filters: ["playful","affectionate"],
     shortDesc: "One of the largest domestic breeds — fluffy, friendly, and endlessly curious.",
     fullDesc: "The Maine Coon is one of the oldest and largest natural cat breeds in North America. Often called the 'dog of the cat world,' they love to follow their owners around, play fetch, and even learn tricks. Their thick, water-resistant coats and tufted ears hint at their cold-weather New England origins. They are gentle, highly sociable, and great with children and other pets."
   },
   {
-    rank: 3,
-    name: "Ragdoll",
-    origin: "Breed · California, USA",
-    emoji: "🤍",
-    color: "linear-gradient(135deg,#b3c8e8,#7b9cbf)",
+    rank: 3, name: "Ragdoll", origin: "Breed · California, USA", emoji: "🤍",
+    img: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/White_Ragdoll_cat.jpg/600px-White_Ragdoll_cat.jpg",
+    color: "#7b9cbf",
     traits: ["Calm","Cuddly","Gentle","Quiet"],
-    lifespan: "12–17 yrs",
-    weight: "10–20 lbs",
-    coat: "Semi-long, Silky",
-    energy: "⚡",
-    popularity: "high",
-    filters: ["calm","affectionate"],
+    lifespan: "12–17 yrs", weight: "10–20 lbs", coat: "Semi-long, Silky", energy: "⚡",
+    popularity: "high", filters: ["calm","affectionate"],
     shortDesc: "Named for going limp when held — the ultimate lap cat.",
     fullDesc: "Ragdolls are known for their docile, calm temperament and tendency to go limp when picked up — hence the name. They are strikingly beautiful with blue eyes and pointed coloring. Ragdolls are one of the most affectionate cat breeds, often greeting their owners at the door and following them from room to room. They are ideal for apartment living and families with children."
   },
   {
-    rank: 4,
-    name: "Bengal",
-    origin: "Breed · United States",
-    emoji: "🐆",
-    color: "linear-gradient(135deg,#f9a825,#388e3c)",
+    rank: 4, name: "Bengal", origin: "Breed · United States", emoji: "🐆",
+    img: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Paintedcats_Red_Star_standing.jpg/600px-Paintedcats_Red_Star_standing.jpg",
+    color: "#388e3c",
     traits: ["Athletic","Curious","Vocal","Wild Look"],
-    lifespan: "12–16 yrs",
-    weight: "8–15 lbs",
-    coat: "Short, Spotted",
-    energy: "⚡⚡⚡⚡",
-    popularity: "high",
-    filters: ["playful","vocal"],
+    lifespan: "12–16 yrs", weight: "8–15 lbs", coat: "Short, Spotted", energy: "⚡⚡⚡⚡",
+    popularity: "high", filters: ["playful","vocal"],
     shortDesc: "A wild-looking cat with a domestic heart — energetic and strikingly beautiful.",
     fullDesc: "Bengals were created by crossing domestic cats with the Asian Leopard Cat. The result is a stunning spotted or marbled coat that resembles a wild jungle cat. Don't let the looks fool you — Bengals are fully domesticated and crave human interaction. They are highly active, intelligent, and need lots of stimulation. They often enjoy water and can learn to walk on a leash."
   },
   {
-    rank: 5,
-    name: "Siamese",
-    origin: "Breed · Thailand",
-    emoji: "👁️",
-    color: "linear-gradient(135deg,#90caf9,#1565c0)",
+    rank: 5, name: "Siamese", origin: "Breed · Thailand", emoji: "👁️",
+    img: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/25/Siam_lilacpoint.jpg/600px-Siam_lilacpoint.jpg",
+    color: "#1565c0",
     traits: ["Vocal","Affectionate","Social","Elegant"],
-    lifespan: "15–20 yrs",
-    weight: "6–14 lbs",
-    coat: "Short, Fine",
-    energy: "⚡⚡⚡",
-    popularity: "high",
-    filters: ["vocal","affectionate","playful"],
+    lifespan: "15–20 yrs", weight: "6–14 lbs", coat: "Short, Fine", energy: "⚡⚡⚡",
+    popularity: "high", filters: ["vocal","affectionate","playful"],
     shortDesc: "One of the oldest and most vocal breeds — chatty, elegant, and deeply bonded to owners.",
     fullDesc: "The Siamese is one of the world's oldest and most recognized cat breeds, originating from Thailand (formerly Siam). They are known for their striking blue eyes, color-point coats, and incredibly vocal personalities. Siamese cats love to 'talk' and will have full conversations with their owners. They form deep bonds and can suffer from loneliness if left alone too long — they thrive with company."
   },
   {
-    rank: 6,
-    name: "Persian",
-    origin: "Breed · Iran (Persia)",
-    emoji: "👑",
-    color: "linear-gradient(135deg,#f8bbd0,#c2185b)",
+    rank: 6, name: "Persian", origin: "Breed · Iran (Persia)", emoji: "👑",
+    img: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/White_Persian_Cat.jpg/600px-White_Persian_Cat.jpg",
+    color: "#c2185b",
     traits: ["Calm","Quiet","Affectionate","Regal"],
-    lifespan: "12–18 yrs",
-    weight: "7–12 lbs",
-    coat: "Long, Luxurious",
-    energy: "⚡",
-    popularity: "high",
-    filters: ["calm","affectionate"],
+    lifespan: "12–18 yrs", weight: "7–12 lbs", coat: "Long, Luxurious", energy: "⚡",
+    popularity: "high", filters: ["calm","affectionate"],
     shortDesc: "The ultimate glamour cat — serene, regal, and made for indoor royalty.",
     fullDesc: "Persians are one of the most popular and recognizable cat breeds, known for their long, flowing coats, flat faces, and calm demeanor. They are quiet, gentle cats that prefer a serene environment. Persians love to lounge and be admired, making them perfect indoor companions. Their coats require daily grooming to prevent matting. They are loyal and affectionate with their trusted humans."
   },
   {
-    rank: 7,
-    name: "American Shorthair",
-    origin: "Breed · United States",
-    emoji: "🇺🇸",
-    color: "linear-gradient(135deg,#ef9a9a,#c62828)",
+    rank: 7, name: "American Shorthair", origin: "Breed · United States", emoji: "🇺🇸",
+    img: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Jamila_tabby_cat.jpg/600px-Jamila_tabby_cat.jpg",
+    color: "#c62828",
     traits: ["Easy-going","Healthy","Playful","Good with kids"],
-    lifespan: "15–20 yrs",
-    weight: "8–15 lbs",
-    coat: "Short, Dense",
-    energy: "⚡⚡",
-    popularity: "high",
-    filters: ["calm","playful","affectionate"],
+    lifespan: "15–20 yrs", weight: "8–15 lbs", coat: "Short, Dense", energy: "⚡⚡",
+    popularity: "high", filters: ["calm","playful","affectionate"],
     shortDesc: "A true American — hardy, easy-going, and perfect for any family.",
     fullDesc: "The American Shorthair is descended from cats brought to North America by early European settlers. They were bred for health, temperament, and hunting ability. Today they are beloved for their easy-going, adaptable nature. American Shorthairs get along well with children, dogs, and other cats. They are not overly demanding and are content to entertain themselves but still enjoy family time."
   },
   {
-    rank: 8,
-    name: "British Shorthair",
-    origin: "Breed · United Kingdom",
-    emoji: "🫐",
-    color: "linear-gradient(135deg,#b0bec5,#37474f)",
+    rank: 8, name: "British Shorthair", origin: "Breed · United Kingdom", emoji: "🫐",
+    img: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/Britishblue.jpg/600px-Britishblue.jpg",
+    color: "#37474f",
     traits: ["Calm","Independent","Loyal","Stocky"],
-    lifespan: "12–17 yrs",
-    weight: "7–17 lbs",
-    coat: "Short, Plush",
-    energy: "⚡⚡",
-    popularity: "medium",
-    filters: ["calm"],
+    lifespan: "12–17 yrs", weight: "7–17 lbs", coat: "Short, Plush", energy: "⚡⚡",
+    popularity: "medium", filters: ["calm"],
     shortDesc: "Round-faced and plush — the teddy bear of the cat world.",
-    fullDesc: "The British Shorthair is known for its round face, dense plush coat, and sturdy body. They are calm, undemanding, and adapt well to indoor living. While affectionate, they are not clingy — they enjoy being near their owners without needing to be held constantly. Their easygoing nature makes them excellent companions for families, singles, and seniors alike. The blue (grey) variety is the most iconic."
+    fullDesc: "The British Shorthair is known for its round face, dense plush coat, and sturdy body. They are calm, undemanding, and adapt well to indoor living. While affectionate, they are not clingy — they enjoy being near their owners without needing to be held constantly. Their easygoing nature makes them excellent companions for families, singles, and seniors alike."
   },
   {
-    rank: 9,
-    name: "Abyssinian",
-    origin: "Breed · Ethiopia",
-    emoji: "🏃",
-    color: "linear-gradient(135deg,#ffcc80,#e65100)",
+    rank: 9, name: "Abyssinian", origin: "Breed · Ethiopia", emoji: "🏃",
+    img: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Gustav_chocolate.jpg/600px-Gustav_chocolate.jpg",
+    color: "#e65100",
     traits: ["Active","Curious","Intelligent","Acrobatic"],
-    lifespan: "9–15 yrs",
-    weight: "6–10 lbs",
-    coat: "Short, Ticked",
-    energy: "⚡⚡⚡⚡",
-    popularity: "medium",
-    filters: ["playful"],
+    lifespan: "9–15 yrs", weight: "6–10 lbs", coat: "Short, Ticked", energy: "⚡⚡⚡⚡",
+    popularity: "medium", filters: ["playful"],
     shortDesc: "The athlete of the cat world — always moving, always curious.",
     fullDesc: "Abyssinians are one of the oldest known cat breeds and are beloved for their slender, muscular build and distinctive ticked coat. They are incredibly active, curious, and love to explore every inch of their environment. Abyssinians are known as the 'clowns of the cat kingdom' for their playful, mischievous antics. They thrive in active households and need plenty of toys and vertical space to climb."
   },
   {
-    rank: 10,
-    name: "Sphynx",
-    origin: "Breed · Toronto, Canada",
-    emoji: "🌡️",
-    color: "linear-gradient(135deg,#ffe082,#ff8f00)",
+    rank: 10, name: "Sphynx", origin: "Breed · Toronto, Canada", emoji: "🌡️",
+    img: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/Sphynx1.jpg/600px-Sphynx1.jpg",
+    color: "#ff8f00",
     traits: ["Warm","Attention-loving","Social","Hypoallergenic"],
-    lifespan: "8–14 yrs",
-    weight: "6–12 lbs",
-    coat: "Hairless",
-    energy: "⚡⚡⚡",
-    popularity: "medium",
-    filters: ["affectionate","hypoallergenic","playful","vocal"],
+    lifespan: "8–14 yrs", weight: "6–12 lbs", coat: "Hairless", energy: "⚡⚡⚡",
+    popularity: "medium", filters: ["affectionate","hypoallergenic","playful","vocal"],
     shortDesc: "Bald, warm, and endlessly loving — surprisingly cuddly without any fur.",
     fullDesc: "The Sphynx is the most distinctive of all cat breeds, famous for its hairless appearance. Despite looking aloof, Sphynx cats are extraordinarily social, affectionate, and even dog-like in their devotion to their owners. Their skin feels like warm suede to the touch. Because they lack fur for insulation, they seek warmth — making them natural lap cats. They are often recommended for people with mild cat allergies."
   }
@@ -570,17 +358,19 @@ function buildCards() {
 
     card.innerHTML = `
       <div class="card-banner" style="background:${cat.color}">
+        <span class="fallback">${cat.emoji}</span>
+        <img src="${cat.img}" alt="${cat.name}" loading="lazy"
+             onload="this.previousElementSibling.style.display='none'"
+             onerror="this.style.display='none'" />
+        <div class="img-gradient"></div>
         <span class="rank-badge">#${cat.rank}</span>
-        <span style="line-height:1">${cat.emoji}</span>
         <span class="popularity-badge ${cat.popularity}">${cat.popularity === 'high' ? '🔥 Very Popular' : '⭐ Popular'}</span>
       </div>
       <div class="card-body">
         <h2>${cat.name}</h2>
         <div class="origin">${cat.origin}</div>
         <p class="card-desc">${cat.shortDesc}</p>
-        <div class="traits">
-          ${cat.traits.map(t => `<span class="trait">${t}</span>`).join('')}
-        </div>
+        <div class="traits">${cat.traits.map(t => `<span class="trait">${t}</span>`).join('')}</div>
         <div class="card-stats">
           <span class="stat">⏳ ${cat.lifespan}</span>
           <span class="stat">⚖️ ${cat.weight}</span>
@@ -599,12 +389,8 @@ function filterCats() {
   cards.forEach(card => {
     const matchSearch = !query || card.dataset.name.includes(query) || card.dataset.traits.includes(query);
     const matchFilter = activeFilter === 'all' || card.dataset.filters.includes(activeFilter);
-    if (matchSearch && matchFilter) {
-      card.classList.remove('hidden');
-      visible++;
-    } else {
-      card.classList.add('hidden');
-    }
+    if (matchSearch && matchFilter) { card.classList.remove('hidden'); visible++; }
+    else card.classList.add('hidden');
   });
 
   document.getElementById('no-results').style.display = visible === 0 ? 'block' : 'none';
@@ -618,16 +404,33 @@ function setFilter(filter, btn) {
 }
 
 function openModal(cat) {
-  document.getElementById('modal-banner').style.background = cat.color;
-  document.getElementById('modal-banner').querySelector('span') &&
-    document.getElementById('modal-banner').childNodes.forEach(n => { if (n.tagName === 'SPAN' && !n.classList.contains('modal-close')) n.remove(); });
+  const banner = document.getElementById('modal-banner');
 
-  const emojiEl = document.createElement('span');
-  emojiEl.textContent = cat.emoji;
-  emojiEl.style.cssText = 'font-size:5rem;line-height:1';
-  document.getElementById('modal-banner').appendChild(emojiEl);
+  // Clear previous image
+  const oldImg = banner.querySelector('img');
+  if (oldImg) oldImg.remove();
+  const oldFallback = banner.querySelector('.fallback');
+  if (oldFallback) oldFallback.remove();
 
-  document.getElementById('modal-name').textContent = `#${cat.rank} — ${cat.name}`;
+  // Set background color fallback
+  banner.style.background = cat.color;
+
+  // Emoji fallback
+  const fallback = document.createElement('span');
+  fallback.className = 'fallback';
+  fallback.textContent = cat.emoji;
+  banner.insertBefore(fallback, banner.firstChild);
+
+  // Real photo
+  const img = document.createElement('img');
+  img.src = cat.img;
+  img.alt = cat.name;
+  img.style.cssText = 'width:100%;height:100%;object-fit:cover;position:absolute;inset:0;';
+  img.onload  = () => { fallback.style.display = 'none'; };
+  img.onerror = () => { img.remove(); };
+  banner.insertBefore(img, banner.firstChild);
+
+  document.getElementById('modal-banner-title').textContent = `#${cat.rank} — ${cat.name}`;
   document.getElementById('modal-origin').textContent = cat.origin;
   document.getElementById('modal-desc').textContent = cat.fullDesc;
   document.getElementById('modal-life').textContent = cat.lifespan;
@@ -643,18 +446,11 @@ function openModal(cat) {
 function closeModal() {
   document.getElementById('backdrop').classList.remove('open');
   document.body.style.overflow = '';
-  // remove dynamically added emoji
-  const banner = document.getElementById('modal-banner');
-  banner.querySelectorAll('span:not(.modal-close)').forEach(el => el.remove());
 }
 
-function handleBackdrop(e) {
-  if (e.target === e.currentTarget) closeModal();
-}
-
+function handleBackdrop(e) { if (e.target === e.currentTarget) closeModal(); }
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 
-// Init
 buildCards();
 </script>
 </body>
